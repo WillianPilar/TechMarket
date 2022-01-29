@@ -1,0 +1,86 @@
+<h1 class="mt4">Código de barras</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Consulta</li>
+</ol>
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success" role="alert" *ngIf="deletadoSucesso">
+                {{ deletadoSucesso }}
+            </div>
+            <div class="alert alert-danger" role="alert" *ngIf="deletadoErro">
+                {{ deletadoErro }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <button class="btn btn-warning" (click)="novoCadastro()">
+                <i class="fa fa-plus"></i> Novo
+            </button>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <table class="table table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>Código de barras</th>
+                        <th>Nome</th>
+                        <th>Marca</th>
+                        <th>Categoria</th>
+                        <th>Setor</th>
+                        <th>Peso</th>
+                        <th>Tipo de armazenamento</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let barcode of barcodes">
+                        <td>{{ barcode.barCode }}</td>
+                        <td>{{ barcode.name }}</td>
+                        <td>{{ barcode.brand }}</td>
+                        <td>{{ barcode.category }}</td>
+                        <td>{{ barcode.sector }}</td>
+                        <td>{{ barcode.weight }}</td>
+                        <td>{{ barcode.typeOfStorage }}</td>
+                        <td>
+                            <button class="btn btn-outline-secondary mr-1" routerLink="/barcode-form/{{ barcode.barCode }}">
+                                <i class="fa fa-edit"></i>
+                            </button>
+
+                            <button class="btn btn-outline-danger" data-toggle="modal" data-target="#modalDelecao" (click)="preparaDelecaoBarcode(barcode)">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="modalDelecao" class="modal fade" role="dialog" *ngIf="barcodeSelecionado">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>
+                    Deletar código de barras do produto {{ barcodeSelecionado.name }}
+                </h4>
+            </div>
+            <div class="modal-body">
+                <a>Deseja realmente deletar esse código de barras?</a>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" (click)="deletarBarcode()" data-dismiss="modal">
+                    Confirmar
+                </button>
+                <button class="btn btn-light" data-dismiss="modal">
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

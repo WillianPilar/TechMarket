@@ -1,0 +1,11 @@
+.transparente{
+    opacity: 0;
+}
+
+#novoProduto{
+    background-color: rgb(178, 218, 218);
+}
+
+#letraPreta{
+    color: black;
+}

@@ -1,0 +1,100 @@
+<h1 class="mt-4">{{idBarcode ? 'Editar' : 'Cadastrar' }} código de barras</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">{{ idBarcode ? 'Edição' : 'Cadastro' }}</li>
+</ol>
+<div class="container">
+    <form (submit)="onSubmit()">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-success" role="alert" *ngIf="success == true">
+                    Código de barras salvo com sucesso!
+                </div>
+                <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
+                    {{ erro }}
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <label>Código de barras: *</label>
+                <input type="text" class="form-control" [(ngModel)]="barcode.barCode" name="barCode">
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <label>Nome: *</label>
+                <input type="text" class="form-control" [(ngModel)]="barcode.name" name="name">
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-6">
+                <label>Preço: *</label>
+                <input type="text" class="form-control" [(ngModel)]="barcode.price" name="price">
+            </div>
+            <div class="col-md-6">
+                <label>Marca: *</label>
+                <input type="text" class="form-control" [(ngModel)]="barcode.brand" name="brand">
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-6">
+                <label>Categoria: *</label>
+                <input type="text" class="form-control" [(ngModel)]="barcode.category" name="category">
+            </div>
+            <div class="col-md-6">
+                <label>Setor: *</label>
+                <input type="text" class="form-control" [(ngModel)]="barcode.sector" name="sector">
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-6">
+                <label>Peso:</label>
+                <input type="text" class="form-control" [(ngModel)]="barcode.weight" name="weight">
+            </div>
+            <div class="col-md-6">
+                <label>Tipo de peso:</label>
+                <input type="text" class="form-control" [(ngModel)]="barcode.weightType" name="weightType">
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-6">
+                <label>Perecível: *</label>
+                <input type="text" class="form-control" [(ngModel)]="barcode.perishable" name="perishable">
+            </div>
+            <div class="col-md-6">
+                <label>Tipo de armazenamento: *</label>
+                <input type="text" class="form-control" [(ngModel)]="barcode.typeOfStorage" name="typeOfStorage">
+            </div>
+        </div>
+        <br>
+      
+        <div class="row">
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-success" *ngIf="!idBarcode">
+                    <i class="fa fa-save"></i> Salvar
+                </button>
+
+                <button type="submit" class="btn btn-primary" *ngIf="idBarcode">
+                    <i class="fa fa-sync"></i> Atualizar
+                </button>
+
+                <button class="btn btn-outline-secondary ml-2" (click)="voltarParaLista()" >
+                    <i class="fa fa-arrow-circle-left"></i> Voltar
+                </button>
+            </div>
+        </div>
+
+    </form>
+</div>

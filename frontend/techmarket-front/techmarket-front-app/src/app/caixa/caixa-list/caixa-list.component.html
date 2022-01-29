@@ -1,0 +1,67 @@
+<h1 class="mt4">Caixas</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Consulta</li>
+</ol>
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-2">
+            <button class="btn btn-warning" (click)="novoCadastro()">
+                <i class="fa fa-plus"></i> Novo
+            </button>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <table class="table table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>Número</th>
+                        <th>Status</th>
+                        <th>Fundo de troco</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let caixa of caixas">
+                        <td>{{ caixa.numeroDoCaixa }}</td>
+                        <td>{{ caixa.status }}</td>
+                        <td>{{ caixa.fundoDeTroco | currency:'BRL':true}}</td>
+                        <td>
+                            <button class="btn btn-outline-secondary" routerLink="/caixa-form/{{caixa.numeroDoCaixa}}">
+                                <i class="fa fa-edit"></i>
+                            </button>
+
+                            <button class="btn btn-outline-danger ml-1" data-toggle="modal" data-target="#modalDelecao" (click)="preparaDelecao(caixa)" >
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="modalDelecao" class="modal fade" role="dialog" *ngIf="caixaSelecionado">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>
+                    Deletar caixa do sistema
+                </h4>
+            </div>
+            <div class="modal-body">
+                <a>Deseja realmente deletar esse caixa?</a>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" (click)="deletarCaixa()" data-dismiss="modal">
+                    Confirmar
+                </button>
+                <button class="btn btn-light" data-dismiss="modal">
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

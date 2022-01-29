@@ -1,0 +1,69 @@
+<h1 class="mt-4">{{caixaIsPresent ? 'Editar' : 'Cadastrar'}} caixa no sistema</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">{{caixaIsPresent ? 'Edição' : 'Cadastro'}}</li>
+</ol>
+<div class="container">
+    <form (submit)="onSubmit()">
+
+        <!-- INICIO FORMULÁRIO PARA CRIAR -->
+        <div class="row" *ngIf="!caixaIsPresent">
+            <div class="col-md-12">
+                <label>Número do caixa: *</label>
+                <input type="text" class="form-control" [(ngModel)]="requestNewCaixa.numeroDoCaixa" name="numeroDoCaixa">
+            </div>
+        </div>
+        <br>
+
+        <div class="row" *ngIf="!caixaIsPresent">
+            <div class="col-md-12">
+                <label>Status: *</label>
+                <input type="text" class="form-control" [(ngModel)]="requestNewCaixa.status" name="status">
+            </div>
+        </div>
+        <br>
+        <!-- FIM FORMULÁRIO PARA CRIAR -->
+
+        <!-- INICIO FORMULÁRIO PARA ATUALIZAR -->
+        <div class="row" *ngIf="caixaIsPresent">
+            <div class="col-md-12">
+                <label>Número do caixa: *</label>
+                <input type="text" class="form-control" [(ngModel)]="caixaResponse.numeroDoCaixa" name="numeroDoCaixa" disabled="true">
+            </div>
+        </div>
+        <br>
+
+        <div class="row" *ngIf="caixaIsPresent">
+            <div class="col-md-12">
+                <label>Status: *</label>
+                <input type="text" class="form-control" [(ngModel)]="caixaResponse.status" name="status">
+            </div>
+        </div>
+        <br>
+
+        <div class="row" *ngIf="caixaIsPresent">
+            <div class="col-md-12">
+                <label>Fundo de troco: *</label>
+                <input type="text" class="form-control" [(ngModel)]="caixaResponse.fundoDeTroco" name="fundoDeTroco">
+            </div>
+        </div>
+        <br>
+        <!-- FIM FORMULÁRIO PARA ATUALIZAR -->
+      
+        <div class="row">
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-success" *ngIf="!caixaIsPresent">
+                    <i class="fa fa-save"></i> Salvar
+                </button>
+
+                <button type="submit" class="btn btn-primary" *ngIf="caixaIsPresent">
+                    <i class="fa fa-sync"></i> Atualizar
+                </button>
+
+                <button class="btn btn-outline-secondary ml-2" (click)="voltarParaLista()" >
+                    <i class="fa fa-arrow-circle-left"></i> Voltar
+                </button>
+            </div>
+        </div>
+
+    </form>
+</div>

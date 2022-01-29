@@ -1,0 +1,161 @@
+<h1 class="mt-4">{{ produto.productId ? 'Editar' : 'Cadastrar' }} produto no estoque</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">{{ produto.productId ? 'Edição' : 'Cadastro' }}</li>
+</ol>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-10">
+            <label>{{ produto.productId ? 'Código de barras: ' : 'Código de barras: *' }}</label>
+            <input type="text" class="form-control" [(ngModel)]="barcode.barCode" name="barCode" [disabled]="produtoIsPresent">
+        </div>
+        <div class="col-md-2" *ngIf="!produto.productId">
+            <label class="transparente">Transparente</label>
+            <button class="btn btn-success" (click)="searchBarcode(barcode)">
+                <i class="fa fa-search"> Pesquisar</i>
+            </button>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="barcodePesquisaIsError">
+        <div class="col-md-12">
+            <div class="alert alert-danger mt-4" role="alert">
+                Código de barras não está cadastrado
+                <div>
+                    <button class="btn btn-warning mt-2" (click)="novoBarCode()">
+                        <i class="fa fa-plus"> Cadastrar</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="container">
+
+    <form (submit)="onSubmit()">
+
+        <div class="row" *ngIf="barcodeIsPresent">
+
+            <div class="col-md-12">
+                <ol class="breadcrumb mt-5">
+                    <li class="breadcrumb-item active">Informações do código de barras</li>
+                </ol>
+            </div>
+
+            <div class="col-md-12">
+                <label>Nome:</label>
+                <input type="text" class="form-control" [(ngModel)]="barcode.name" name="name" disabled="true">
+            </div>
+
+            <div class="col-md-6  mt-2">
+                <label>Preço:</label>
+                <input type="text" class="form-control" [(ngModel)]="barcode.price" name="price" disabled="true">
+            </div>
+            <div class="col-md-6 mt-2">
+                <label>Marca:</label>
+                <input type="text" class="form-control" [(ngModel)]="barcode.brand" name="brand" disabled="true">
+            </div>
+
+            <div class="col-md-6 mt-2">
+                <label>Categoria:</label>
+                <input type="text" class="form-control" [(ngModel)]="barcode.category" name="category" disabled="true">
+            </div>
+            <div class="col-md-6 mt-2">
+                <label>Setor:</label>
+                <input type="text" class="form-control" [(ngModel)]="barcode.sector" name="sector" disabled="true">
+            </div>
+
+            <div class="col-md-6 mt-2">
+                <label>Peso:</label>
+                <input type="text" class="form-control" [(ngModel)]="barcode.weight" name="weight" disabled="true">
+            </div>
+            <div class="col-md-6 mt-2">
+                <label>Tipo de peso:</label>
+                <input type="text" class="form-control" [(ngModel)]="barcode.weightType" name="weightType"
+                    disabled="true">
+            </div>
+
+            <div class="col-md-6 mt-2">
+                <label>Perecível:</label>
+                <input type="text" class="form-control" [(ngModel)]="barcode.perishable" name="perishable"
+                    disabled="true">
+            </div>
+            <div class="col-md-6 mt-2">
+                <label>Tipo de armazenamento:</label>
+                <input type="text" class="form-control" [(ngModel)]="barcode.typeOfStorage" name="typeOfStorage"
+                    disabled="true">
+            </div>
+
+            <div class="col-md-12">
+                <hr class="my-4">
+                <ol class="breadcrumb" id="novoProduto">
+                    <li class="breadcrumb-item active" id="letraPreta">{{ produtoIsPresent ? 'Editar' : 'Cadastrar novo' }} produto no estoque </li>
+                </ol>
+            </div>
+
+            <div class="col-md-6 mt-2">
+                <label>Data de validade: *</label>
+                <input type="text" class="form-control" [(ngModel)]="produtoRequest.dtValidade" name="dtValidade">
+            </div>
+            <div class="col-md-6 mt-2">
+                <label>Data e hora de fabricação: *</label>
+                <input type="text" class="form-control" [(ngModel)]="produtoRequest.dtHrFabricacao"
+                    name="dtHrFabricacao">
+            </div>
+
+            <div class="col-md-6 mt-2">
+                <label>Quantidade: *</label>
+                <input type="text" class="form-control" [(ngModel)]="produtoRequest.quantidade" name="quantidade">
+            </div>
+            <div class="col-md-6 mt-2" *ngIf="!produtoIsPresent">
+                <label>Preço de compra: *</label>
+                <input type="text" class="form-control" [(ngModel)]="produtoRequest.precoDeCompra" name="precoDeCompra">
+            </div>
+            <div class="col-md-6 mt-2" *ngIf="produtoIsPresent">
+                <label>Preço: *</label>
+                <input type="text" class="form-control" [(ngModel)]="produtoRequest.preco" name="preco">
+            </div>
+
+            <div class="col-md-6 mt-2">
+                <label>Número do lote:</label>
+                <input type="text" class="form-control" [(ngModel)]="produtoRequest.nrLote" name="nrLote">
+            </div>
+            <div class="col-md-6 mt-2">
+                <label>Nota fiscal:</label>
+                <input type="text" class="form-control" [(ngModel)]="produtoRequest.notaFiscal" name="notaFiscal">
+            </div>
+
+        </div>
+
+        <div class="row" *ngIf="barcodeIsPresent">
+            <div class="col-md-4 mt-4">
+                <button type="submit" class="btn btn-success" *ngIf="!produtoIsPresent">
+                    <i class="fa fa-save"></i> Salvar
+                </button>
+                <button type="submit" class="btn btn-primary" *ngIf="produtoIsPresent">
+                    <i class="fa fa-save"></i> Atualizar
+                </button>
+
+                <button class="btn btn-outline-secondary ml-2" (click)="voltarParaLista()">
+                    <i class="fa fa-arrow-circle-left"></i> Voltar
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 mt-4">
+                <div class="alert alert-success" role="alert" *ngIf="success == true">
+                    Produto salvo com sucesso!
+                </div>
+                <div class="alert alert-danger" role="alert" *ngFor="let erro of errors">
+                    {{ erro }}
+                </div>
+            </div>
+        </div>
+        
+        <br><br><br><br><br>
+    </form>
+</div>

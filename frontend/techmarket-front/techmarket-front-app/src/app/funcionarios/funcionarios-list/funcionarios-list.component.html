@@ -1,0 +1,89 @@
+<h1 class="mt4">Funcionários</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Consulta</li>
+</ol>
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success" role="alert" *ngIf="deletadoSucesso">
+                {{ deletadoSucesso }}
+            </div>
+            <div class="alert alert-danger" role="alert" *ngIf="deletadoErro">
+                {{ deletadoErro }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <button class="btn btn-warning" (click)="novoCadastro()">
+                <i class="fa fa-plus"></i> Novo
+            </button>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <table class="table table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>Matrícula</th>
+                        <th>Nome</th>
+                        <th>Data de contratação</th>
+                        <th>Data de nascimento</th>
+                        <th>Status</th>
+                        <th>Cargo</th>
+                        <th>Setor</th>
+                        <th>Tipo de acesso</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let funcionario of funcionarios">
+                        <td>{{ funcionario.matricula }}</td>
+                        <td>{{ funcionario.name }}</td>
+                        <td>{{ funcionario.hiringDate }}</td>
+                        <td>{{ funcionario.birthDate }}</td>
+                        <td>{{ funcionario.employeeStatus }}</td>
+                        <td>{{ funcionario.position }}</td>
+                        <td>{{ funcionario.sector }}</td>
+                        <td>{{ funcionario.typeOfAccess }}</td>
+                        <td>
+                            <button class="btn btn-outline-secondary" routerLink="/funcionarios-form/{{ funcionario.id }}">
+                                <i class="fa fa-edit"></i>
+                            </button>
+
+                            <button class="btn btn-outline-danger ml-1" data-toggle="modal" data-target="#modalDelecao" (click)="preparaDelecaoDoFuncionario(funcionario)">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<div id="modalDelecao" class="modal fade" role="dialog" *ngIf="funcionarioSelecionado">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>
+                    Deletar funcionário {{ funcionarioSelecionado.name }}
+                </h4>
+            </div>
+            <div class="modal-body">
+                <a>Deseja realmente deletar esse funcionário?</a>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" (click)="deletarFuncionario()" data-dismiss="modal">
+                    Confirmar
+                </button>
+                <button class="btn btn-light" data-dismiss="modal">
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

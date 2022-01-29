@@ -1,0 +1,81 @@
+<h1 class="mt4">Estoque</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item active">Consulta</li>
+</ol>
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success" role="alert" *ngIf="deletadoSucesso">
+                {{ deletadoSucesso }}
+            </div>
+            <div class="alert alert-danger" role="alert" *ngIf="deletadoErro">
+                {{ deletadoErro }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <button class="btn btn-warning" (click)="novoCadastro()">
+                <i class="fa fa-plus"></i> Novo
+            </button>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <table class="table table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>Código de barras</th>
+                        <th>Preço</th>
+                        <th>Quantidade</th>
+                        <th>Data de validade</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let produto of produtos">
+                        <td>{{ produto.barCode }}</td>
+                        <td>{{ produto.precoAtual }}</td>
+                        <td>{{ produto.quantidade }}</td>
+                        <td>{{ produto.dtValidade | date: "dd/MM/yyyy" }}</td>
+                        <td>
+                            <button class="btn btn-outline-secondary" routerLink="/estoque-form/{{produto.productId}}">
+                                <i class="fa fa-edit"></i>
+                            </button>
+
+                            <button class="btn btn-outline-danger ml-1" data-toggle="modal" data-target="#modalDelecao" (click)="preparaDelecao(produto)">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<div id="modalDelecao" class="modal fade" role="dialog" *ngIf="produtoSelecionado">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>
+                    Deletar produto do estoque
+                </h4>
+            </div>
+            <div class="modal-body">
+                <a>Deseja realmente deletar esse produto?</a>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" (click)="deletarProduto()" data-dismiss="modal">
+                    Confirmar
+                </button>
+                <button class="btn btn-light" data-dismiss="modal">
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
